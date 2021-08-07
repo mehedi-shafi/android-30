@@ -3,6 +3,9 @@
 Docker for Android SDK 30 with preinstalled build tools and emulator image
 
 > Edit from [mindrunner/docker-android-sdk](https://github.com/mindrunner/docker-android-sdk)
+> Edit from [docker-android-sdk/android-30](https://github.com/docker-android-sdk/android-30)
+
+**The only difference what I felt necessary is to remove the emulator image from downloading. To make the image smaller and faster build for when you only want the image to build an apk or running the tests**
 
 **Installed Packages**
 ```bash
