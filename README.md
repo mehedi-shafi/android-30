@@ -46,3 +46,31 @@ Docker for Android SDK 30 with preinstalled build tools and emulator image
   $ docker run -it --rm androidsdk/android-30:latest avdmanager list avd
   # You can also run other Android platform tools, which are all added to the PATH environment variable
   ```
+
+# Slim builds
+We build the changed Docker image as android_slim. And then we can use this [file](example/Dockerfile) 
+	to build an android apk builder image. And run the container as following.
+
+And we build the image using the command 
+
+docker build -t tkdc_android:latest .
+
+This will build the image and when we start the container it will create a debug apk for the project.
+
+docker run -dit \
+	--name=tab \
+	tkdc_android
+
+Whoa! its always downloading gradle and dependencies. Lets optimize it a bit. remember the volumes we created before?
+
+docker run -dit \
+	--name=tab \
+	-v /home/shafi/temp/gradle:/root/.gradle
+	-v /home/shafi/temp/build:/app/app/build/outputs/apk
+	tkdc_android
+
+Now every time we need to build an apk we can just 
+
+docker start tab
+
+But what about when a code changes?? And new dependencies is added? No worries we have brought the gradle cache outside it will work (update partially when required) from there.
